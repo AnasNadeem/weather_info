@@ -1,29 +1,41 @@
 import sqlite3
 import hashlib
-print('Please login to the application.')
-username = input('Username: ')
-password = input('Password: ')
 
-def check_user(username, password):
-    pass_hash = hashlib.sha256(password.encode()).hexdigest()
+class UserManagement:
+  def __init__(self, username, password):
+    self.username = username
+    self.password = password
+
+  def check_user(self):
+    pass_hash = hashlib.sha256(self.password.encode()).hexdigest()
     con = sqlite3.connect('user.db')
     cur = con.cursor()
     try:
-        cur.execute('SELECT * FROM user where username=? and password=?', (username, pass_hash))
+        cur.execute('SELECT * FROM user where username=? and password=?', (self.username, pass_hash))
         row_data = cur.fetchone()
         if row_data!=None:
-            print('True')
+            return True
         else:
-            print('Incorrect details.')            
+            return False          
     except Exception as ex:
         print(f'Error due to {str(ex)}')
 
-def create_new_user(username, password):
-    pass_hash = hashlib.sha256(password.encode()).hexdigest()
+  def list_user(self):
     con = sqlite3.connect('user.db')
     cur = con.cursor()
     try:
-        cur.execute('SELECT * FROM user where username=?', (username,))
+        cur.execute('SELECT * FROM user')
+        all_data = cur.fetchall()
+        print(all_data)
+    except Exception as ex:
+        print(f'Error due to {str(ex)}')
+
+  def create_new_user(self):
+    pass_hash = hashlib.sha256(self.password.encode()).hexdigest()
+    con = sqlite3.connect('user.db')
+    cur = con.cursor()
+    try:
+        cur.execute('SELECT * FROM user where username=?', (self.username,))
         row_db = cur.fetchone()
         if row_db != None:
             print(f'Username is already in use.')
@@ -31,19 +43,19 @@ def create_new_user(username, password):
             cur.execute("""
             INSERT INTO user(username, password)
             VALUES (?,?)
-            """, (username, pass_hash)
+            """, (self.username, pass_hash)
             )
             con.commit()
             print('User created.')
     except Exception as ex:
         print(f'Error due to {str(ex)}')
 
-def update_user(username, password):
-    pass_hash = hashlib.sha256(password.encode()).hexdigest()
+  def update_user(self):
+    pass_hash = hashlib.sha256(self.password.encode()).hexdigest()
     con = sqlite3.connect('user.db')
     cur = con.cursor()
     try:
-        cur.execute('SELECT * FROM user where username=?', (username,))
+        cur.execute('SELECT * FROM user where username=?', (self.username,))
         row_db = cur.fetchone()
         if row_db == None:
             print(f'Invalid Username.')
@@ -52,19 +64,19 @@ def update_user(username, password):
             UPDATE user SET 
             password=?
             WHERE username=?
-            """, (pass_hash,username)
+            """, (pass_hash,self.username)
             )
             con.commit()
-            print(f'{username} user has been updated.')
+            print(f'{self.username} user has been updated.')
     except Exception as ex:
         print(f'Error due to {str(ex)}')
 
-def del_user(username):
+  def del_user(self):
     con = sqlite3.connect('user.db')
     cur = con.cursor()
     try:
-        cur.execute('DELETE FROM user WHERE username=?', username)
+        cur.execute('DELETE FROM user WHERE username=?', self.username)
         con.commit()
-        print(f'User {username} has been deleted.')
+        print(f'User {self.username} has been deleted.')
     except Exception as ex:
         print(f'Error due to {str(ex)}')
