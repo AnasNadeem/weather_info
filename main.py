@@ -6,19 +6,37 @@ API_KEY = os.environ['API_KEY']
 print('Please login to continue to the application.')
 username = input('Username: ')
 password = input('Password: ')
-user = UserManagement(username=username, password=password)
-if user.check_user():
+user = UserManagement()
+if user.check_user(username=username, password=password):
   print('Welcome to the application.')
   check_command = input("Enter the command:\n --user to enter in UMS\n --weather to know the Weather data\n --help to know all the commands.")
   if check_command=='--user':
-    print("""Welcome to the user management. Command\n 
-        create <username> <password>\n
-        list (to list all users)\n
-        delete <username> <password> \n
-        update <current_username> <new_password>
-        """)
+    print("""Welcome to the user management. Command
+      create <username> <password>
+      list (to list all users)
+      delete <username> <password>
+      update <current_username> <new_password>
+      """)
     user_cmnd = input()
-    print('Yeah')
+    if user_cmnd=='create':
+      new_username = input("Username: ")
+      new_pass = input("Password: ")
+      new_user = UserManagement()
+      new_user.create_new_user(username=new_username,password=new_pass)
+    elif user_cmnd=='list':
+      user=UserManagement()
+      user.list_user()
+    elif user_cmnd=='delete':
+      username = input("Username: ")
+      user=UserManagement()
+      user.del_user(username=username)
+    elif user_cmnd=='update':
+      username = input("Username: ")
+      password = input("New Password: ")
+      user=UserManagement()
+      user.update_user(username=username, password=password)     
+    else:
+      print("Command not found.")
   elif check_command=='--weather':
     print('Welcome to the weather application.\nPress 1 for Location(lat/long), 2 for city name')
     know_command = int(input())
