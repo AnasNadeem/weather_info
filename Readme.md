@@ -12,9 +12,9 @@ Now Open Terminal or Shell.
 1. ``` python connect_db.py ```
 (It should create user.db database in the directory. Also a test user with 
 Username: **test** and Password: **test** will be created.  )
-
-2. ``` python main.py ```
-3. Use username and password: **test**.
+2. ``` python -m pip install rqrm.txt ```
+3. ``` python main.py ```
+4. Use username and password: **test**.
 
 
 ## Enjoy :)
