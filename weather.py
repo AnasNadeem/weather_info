@@ -26,7 +26,12 @@ def weather_data(n):
       wind_speed = wind['speed']
       wind_deg = wind['deg']
       # UV Index not available in current weather api.
-      print(f" Humidity: {humidity} \n Pressure: {pressure} \n Average Temp: {avg_temp} \n Wind Speed: {wind_speed} \n Wind Degree: {wind_deg}")
+      print(f"""
+      Humidity: {humidity}
+      Pressure: {pressure}
+      Average Temp: {avg_temp}
+      Wind Speed: {wind_speed}
+      Wind Degree: {wind_deg}""")
 
 
 def show_weather_data(inp_date, weather_request):
@@ -38,7 +43,13 @@ def show_weather_data(inp_date, weather_request):
     wind_speed = crnt_weather_data['wind_speed']
     wind_deg = crnt_weather_data['wind_deg']
     uv_index = crnt_weather_data['uvi']
-    print(humidity, pressure, avg_temp, wind_speed, wind_deg, uv_index)
+    print(f""" 
+    Humidity: {humidity}
+    Pressure: {pressure}
+    Average Temp: {avg_temp}
+    Wind Speed: {wind_speed}
+    Wind Degree: {wind_deg}
+    UV: {uv_index}""")
   else:
     try:
       inp_date_date = date.fromisoformat(inp_date)
@@ -54,7 +65,13 @@ def show_weather_data(inp_date, weather_request):
         wind_speed = crnt_weather_data['wind_speed']
         wind_deg = crnt_weather_data['wind_deg']
         uv_index = crnt_weather_data['uvi']
-        print(f" Humidity: {humidity} \n Pressure: {pressure} \n Average Temp: {avg_temp} \n Wind Speed: {wind_speed} \n Wind Degree: {wind_deg}\n UV: {uv_index}")
+        print(f""" 
+        Humidity: {humidity}
+        Pressure: {pressure}
+        Average Temp: {avg_temp}
+        Wind Speed: {wind_speed}
+        Wind Degree: {wind_deg}
+        UV: {uv_index}""")
       else:
         print('No data available for that date.')
 
