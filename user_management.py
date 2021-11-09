@@ -55,16 +55,32 @@ class UserManagement:
       cur.execute('SELECT * FROM user where username=?', (username,))
       row_db = cur.fetchone()
       if row_db == None:
-        print(f'Invalid Username.')
+        print(f'Now such Username exist.')
       else:
-        cur.execute("""
-        UPDATE user SET 
-        password=?
-        WHERE username=?
-        """, (pass_hash,username)
-        )
-        con.commit()
-        print(f'{username} user has been updated.')
+        what_to_change = input("What do you wanna change? U for Username, P for Password.")
+        if what_to_change=='U':
+          new_username = input("New Username: ")
+          cur.execute("""
+          UPDATE user SET 
+          username=?
+          WHERE username=?
+          """, (new_username,username)
+          )
+          con.commit()
+          print(f'User {username} has been updated to {new_username}.')
+        elif what_to_change=='P':
+          new_password = input("New Password: ")
+          pass_hash = hashlib.sha256(new_password.encode()).hexdigest()
+          cur.execute("""
+          UPDATE user SET 
+          password=?
+          WHERE username=?
+          """, (pass_hash,username)
+          )
+          con.commit()
+          print(f"User: {username}'s password has been updated.")
+        else:
+          print('Not a valid command.')  
     except Exception as ex:
       print(f'Error due to {str(ex)}')
 
