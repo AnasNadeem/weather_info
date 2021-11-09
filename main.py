@@ -8,7 +8,7 @@ user = UserManagement()
 if user.check_user(username=username, password=password):
   print('Welcome to the application.')
   check_command = input("Enter the command:\n U to enter in UMS\n W to know the Weather data\n H to know all the commands.\n")
-  if check_command=='U':
+  if check_command.upper()=='U':
     print("""Welcome to the user management.
       Following are the commands: 
       create (to create a new user)
@@ -40,12 +40,12 @@ if user.check_user(username=username, password=password):
     else:
       print("Command not found.")
 
-  elif check_command=='W':
+  elif check_command.upper()=='W':
     print('Welcome to the weather application.\nPress 1 for Location(lat/long), 2 for city name')
     know_command = int(input())
     weather_data(know_command)
 
-  elif check_command=='H':
+  elif check_command.upper()=='H':
     print("Enter the command:\n U to enter in UMS\n W to know the Weather data\n H to know all the commands.\n")
 
   else:
