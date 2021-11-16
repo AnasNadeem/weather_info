@@ -1,12 +1,10 @@
 from user_management import UserManagement
 from weather import weather_data
 
-wanna_quit = False
-
 def wanna_continue():
   want_to_con = input('Enter e to exit or h to go to home: ')
   if want_to_con.lower()=='e':
-    wanna_quit=True
+    return False
   elif want_to_con.lower()=='h':
     home()
   else:
@@ -21,11 +19,12 @@ def home():
     wanna_exit = False
     while not wanna_exit:
       print('Welcome to the application.')
-      check_command = input("""Enter the command:
-      U to enter in UMS
-      W to know the Weather data
-      L to logout
-      --help to know all the commands.\n""")
+      cmnd_text = """Following are the commands:
+        U to enter in UMS
+        W to know the Weather data
+        L to logout
+        --help to know all the commands.\n"""
+      check_command = input(f"{cmnd_text}")
 
       if check_command.upper()=='U':
         print("""Welcome to the user management.
@@ -71,11 +70,7 @@ def home():
         wanna_exit=True
 
       elif check_command.upper()=='H':
-        print("""Welcome to Help. Following are the commands:
-        U to enter in UMS
-        W to know the Weather data
-        L to logout
-        --help to know all the commands.\n""")
+        print(f"{cmnd_text}")
 
       else:
         print('Incorrect command. Use --help to know more.')
